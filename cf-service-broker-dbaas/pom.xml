@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2015 Orange
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.orange.clara.cloud.brokers</groupId>
+        <artifactId>cloud-paas-cfbrokers</artifactId>
+        <version>1.1.2-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>cf-service-broker-dbaas</artifactId>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <start-class>com.orange.clara.cloud.cf.servicebroker.dbaas.config.Application</start-class>
+        <spring.boot.version>1.2.4.RELEASE</spring.boot.version>
+        <cloud-dbaas-wsdl.version>1.63-SNAPSHOT</cloud-dbaas-wsdl.version>
+        <cxf.version>2.7.12</cxf.version>
+        <dbaas.wsdl.package>com.orange.clara.cloud.dbaas.ws.api</dbaas.wsdl.package>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.github.Orange-OpenSource</groupId>
+            <artifactId>spring-boot-cf-service-broker</artifactId>
+            <version>7769dd0b8878d2cd22a3317c7a067c6a7b1f0e0a</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.easytesting</groupId>
+            <artifactId>fest-assert</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.182</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.orange.clara.cloud.dbaas.wsdl</groupId>
+            <artifactId>cloud-orange-dbaas-wsdl</artifactId>
+            <version>${cloud-dbaas-wsdl.version}</version>
+        </dependency>
+
+        <!-- cxf -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <url>http://repo.springsource.org/libs-milestone/</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- Plugin pour la generation de source a partir du wsdl -->
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-codegen-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>generate-sources-composite</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <!-- WDM G4R3 (wsc) api -->
+                            <wsdlOptions>
+                                <wsdlOption>
+                                    <wsdl>
+                                        classpath:dbaas.wsdl
+                                    </wsdl>
+                                    <extraargs>
+                                        <extraarg>-impl</extraarg>
+                                        <extraarg>-client</extraarg>
+                                        <extraarg>-verbose</extraarg>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>http://orange_dbaas/Ws/Api/data=${dbaas.wsdl.package}.data</extraarg>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>http://orange_dbaas/Ws/Api/enumeration=${dbaas.wsdl.package}.enumeration</extraarg>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>http://orange_dbaas/Ws/Api/exception=${dbaas.wsdl.package}.exception</extraarg>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>http://orange_dbaas/Ws/Api/request=${dbaas.wsdl.package}.request</extraarg>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>http://orange_dbaas/Ws/Api/response=${dbaas.wsdl.package}.response</extraarg>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>http://orange_dbaas/Ws/Api=${dbaas.wsdl.package}.service</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                            </wsdlOptions>
+                        </configuration>
+                        <goals>
+                            <goal>wsdl2java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.orange.clara.cloud.cf.servicebroker.dbaas.config.Application</mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
