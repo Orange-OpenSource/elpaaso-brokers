@@ -1,7 +1,7 @@
 # El PaaSo Brokers
 [![Build Status](https://travis-ci.org/Orange-OpenSource/elpaaso-brokers.svg?branch=master)](https://travis-ci.org/Orange-OpenSource/elpaaso-brokers)
 
-The El PaaSo brokers repo contains Orange custom Cloud Foundry brokers. Three brokers are available.
+The [ElPaaSo](https://github.com/Orange-OpenSource/elpaaso) brokers repo contains Orange custom Cloud Foundry brokers. Three brokers are available.
 
 # Brokers
 
