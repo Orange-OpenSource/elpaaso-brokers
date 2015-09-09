@@ -25,7 +25,7 @@
 
     <groupId>com.orange.clara.cloud.brokers</groupId>
     <artifactId>elpaaso-brokers</artifactId>
-    <version>1.1.2-SNAPSHOT</version>
+    <version>1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>${project.artifactId} - Paas CloudFoundry Brokers</name>
     <description>Paas CloudFoundry Brokers - brokers to enable internal Orange services to be used as CloudFoundry Managed Services</description>
