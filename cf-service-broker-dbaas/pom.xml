@@ -30,7 +30,7 @@
         <java.version>1.8</java.version>
         <start-class>com.orange.clara.cloud.cf.servicebroker.dbaas.config.Application</start-class>
         <spring.boot.version>1.2.4.RELEASE</spring.boot.version>
-        <cloud-dbaas-wsdl.version>1.63-SNAPSHOT</cloud-dbaas-wsdl.version>
+        <elpaaso-dbaas-wsdl.version>1.63.14-SNAPSHOT</elpaaso-dbaas-wsdl.version>
         <cxf.version>2.7.12</cxf.version>
         <dbaas.wsdl.package>com.orange.clara.cloud.dbaas.ws.api</dbaas.wsdl.package>
     </properties>
@@ -81,8 +81,8 @@
 
         <dependency>
             <groupId>com.orange.clara.cloud.dbaas.wsdl</groupId>
-            <artifactId>cloud-orange-dbaas-wsdl</artifactId>
-            <version>${cloud-dbaas-wsdl.version}</version>
+            <artifactId>elpaaso-dbaas-wsdl</artifactId>
+            <version>${elpaaso-dbaas-wsdl.version}</version>
         </dependency>
 
         <!-- cxf -->
@@ -104,6 +104,17 @@
     </dependencies>
 
     <repositories>
+        <repository>
+            <id>jcenter</id>
+            <name>JCenter-Bintray</name>
+            <url>http://jcenter.bintray.com</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
         <repository>
             <id>spring-milestones</id>
             <url>http://repo.springsource.org/libs-milestone/</url>

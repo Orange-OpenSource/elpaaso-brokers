@@ -20,7 +20,7 @@
     <parent>
         <groupId>com.orange.clara.cloud</groupId>
         <artifactId>elpaaso-plugins-management</artifactId>
-        <version>3.0.63</version>
+        <version>3.0.72-SNAPSHOT</version>
     </parent>
 
     <groupId>com.orange.clara.cloud.brokers</groupId>
