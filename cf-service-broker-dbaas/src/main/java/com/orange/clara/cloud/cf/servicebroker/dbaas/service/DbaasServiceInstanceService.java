@@ -31,12 +31,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class DbaasServiceInstanceService implements ServiceInstanceService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DbaasServiceInstanceService.class);
     private DBaasServiceInstanceRepository repository;
     private DBaasService dBaasService;
     private CredentialsGeneratorService credentialsGeneratorService;
-
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(DbaasServiceInstanceService.class);
 
     @Autowired
     public DbaasServiceInstanceService(DBaasServiceInstanceRepository repository, DBaasService dBaasService, CredentialsGeneratorService credentialsGeneratorService) {
@@ -57,18 +55,14 @@ public class DbaasServiceInstanceService implements ServiceInstanceService {
 
         repository.save(new DbaasServiceInstance(request.getServiceInstanceId(), databaseUid).withOwner(defaultOwner));
 
-        return new ServiceInstance(request).isAsync(true);
-    }
-
-    protected DBaasPlan getPlan(String planId) {
-        return DBaasPlan.valueOf(planId);
+        return new ServiceInstance(request).withAsync(true);
     }
 
     public ServiceInstance getServiceInstance(String serviceInstanceId) {
         DbaasServiceInstance instance = repository.findOne(serviceInstanceId);
         if (instance != null) {
             ServiceInstanceLastOperation lastOperation = dBaasService.getDatabaseState(instance.getDatabaseUid());
-            return new ServiceInstance(new CreateServiceInstanceRequest().withServiceInstanceId(serviceInstanceId)).isAsync(true).withLastOperation(lastOperation);
+            return new ServiceInstance(new CreateServiceInstanceRequest().withServiceInstanceId(serviceInstanceId)).withAsync(true).withLastOperation(lastOperation);
         }
         return null;
     }
@@ -84,10 +78,14 @@ public class DbaasServiceInstanceService implements ServiceInstanceService {
 
         repository.delete(instance);
 
-        return new ServiceInstance(request).isAsync(true);
+        return new ServiceInstance(request).withAsync(true);
     }
 
     public ServiceInstance updateServiceInstance(UpdateServiceInstanceRequest request) throws ServiceInstanceUpdateNotSupportedException, ServiceBrokerException, ServiceInstanceDoesNotExistException {
         throw new ServiceInstanceUpdateNotSupportedException(request.getServiceInstanceId());
+    }
+
+    protected DBaasPlan getPlan(String planId) {
+        return DBaasPlan.valueOf(planId);
     }
 }

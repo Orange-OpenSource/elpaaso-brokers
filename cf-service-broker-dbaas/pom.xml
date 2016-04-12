@@ -13,7 +13,7 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -37,9 +37,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.Orange-OpenSource</groupId>
+            <groupId>com.github.cloudfoundry-community</groupId>
             <artifactId>spring-boot-cf-service-broker</artifactId>
-            <version>7769dd0b8878d2cd22a3317c7a067c6a7b1f0e0a</version>
+            <version>a20936d75a</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -124,7 +124,6 @@
             <url>https://jitpack.io</url>
         </repository>
     </repositories>
-
     <build>
         <plugins>
             <plugin>
@@ -149,13 +148,18 @@
                                         <extraarg>-p</extraarg>
                                         <extraarg>http://orange_dbaas/Ws/Api/data=${dbaas.wsdl.package}.data</extraarg>
                                         <extraarg>-p</extraarg>
-                                        <extraarg>http://orange_dbaas/Ws/Api/enumeration=${dbaas.wsdl.package}.enumeration</extraarg>
+                                        <extraarg>
+                                            http://orange_dbaas/Ws/Api/enumeration=${dbaas.wsdl.package}.enumeration
+                                        </extraarg>
                                         <extraarg>-p</extraarg>
-                                        <extraarg>http://orange_dbaas/Ws/Api/exception=${dbaas.wsdl.package}.exception</extraarg>
+                                        <extraarg>http://orange_dbaas/Ws/Api/exception=${dbaas.wsdl.package}.exception
+                                        </extraarg>
                                         <extraarg>-p</extraarg>
-                                        <extraarg>http://orange_dbaas/Ws/Api/request=${dbaas.wsdl.package}.request</extraarg>
+                                        <extraarg>http://orange_dbaas/Ws/Api/request=${dbaas.wsdl.package}.request
+                                        </extraarg>
                                         <extraarg>-p</extraarg>
-                                        <extraarg>http://orange_dbaas/Ws/Api/response=${dbaas.wsdl.package}.response</extraarg>
+                                        <extraarg>http://orange_dbaas/Ws/Api/response=${dbaas.wsdl.package}.response
+                                        </extraarg>
                                         <extraarg>-p</extraarg>
                                         <extraarg>http://orange_dbaas/Ws/Api=${dbaas.wsdl.package}.service</extraarg>
                                     </extraargs>

@@ -13,7 +13,8 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -33,9 +34,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.Orange-OpenSource</groupId>
+            <groupId>com.github.cloudfoundry-community</groupId>
             <artifactId>spring-boot-cf-service-broker</artifactId>
-            <version>7769dd0b8878d2cd22a3317c7a067c6a7b1f0e0a</version>
+            <version>a20936d75a</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -86,7 +87,7 @@
                         <goals>
                             <goal>repackage</goal>
                         </goals>
-                        <configuration />
+                        <configuration/>
                     </execution>
                 </executions>
             </plugin>

@@ -22,6 +22,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.HashMap;
+
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -39,8 +41,7 @@ public class DbaasServiceInstanceServiceTest {
     @Test
     public void should_create_service_instance_if_service_instance_does_not_exist() throws Exception {
         final DbaasServiceInstanceService service = new DbaasServiceInstanceService(repository, dBaasService, credentialsGeneratorService);
-        final CreateServiceInstanceRequest request = new CreateServiceInstanceRequest().withServiceInstanceId("instance_id");
-        request.setPlanId("MYSQL_1G");
+        final CreateServiceInstanceRequest request = new CreateServiceInstanceRequest("", "MYSQL_1G", "", "", true, new HashMap<String, Object>()).withServiceInstanceId("instance_id");
         when(repository.findOne("instance_id")).thenReturn(null);
 
         service.createServiceInstance(request);
@@ -52,8 +53,8 @@ public class DbaasServiceInstanceServiceTest {
     @Test(expected = ServiceInstanceExistsException.class)
     public void fail_to_create_service_instance_if_service_instance_exists() throws Exception {
         final DbaasServiceInstanceService service = new DbaasServiceInstanceService(repository, dBaasService, credentialsGeneratorService);
-        final CreateServiceInstanceRequest request = new CreateServiceInstanceRequest().withServiceInstanceId("instance_id");
-        request.setPlanId("a_plan");
+        final CreateServiceInstanceRequest request = new CreateServiceInstanceRequest("", "a_plan", "", "", true, new HashMap<String, Object>()).withServiceInstanceId("instance_id");
+
         when(repository.findOne("instance_id")).thenReturn(new DbaasServiceInstance("instance_id", "database_id"));
 
         service.createServiceInstance(request);

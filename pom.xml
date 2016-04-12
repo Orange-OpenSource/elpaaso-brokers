@@ -13,7 +13,7 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -28,7 +28,9 @@
     <version>1.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>${project.artifactId} - Paas CloudFoundry Brokers</name>
-    <description>Paas CloudFoundry Brokers - brokers to enable internal Orange services to be used as CloudFoundry Managed Services</description>
+    <description>Paas CloudFoundry Brokers - brokers to enable internal Orange services to be used as CloudFoundry
+        Managed Services
+    </description>
 
     <scm>
         <connection>scm:git:https://github.com/Orange-OpenSource/elpaaso-brokers.git</connection>
@@ -45,6 +47,14 @@
     </distributionManagement>
 
     <repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-elpaaso-maven</id>
+            <name>bintray</name>
+            <url>http://dl.bintray.com/elpaaso/maven</url>
+        </repository>
         <repository>
             <id>jcenter</id>
             <name>JCenter-Bintray</name>
