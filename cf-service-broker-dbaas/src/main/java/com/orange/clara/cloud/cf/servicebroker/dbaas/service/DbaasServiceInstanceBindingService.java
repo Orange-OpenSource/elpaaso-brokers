@@ -38,11 +38,10 @@ import java.util.Map;
 @Service
 public class DbaasServiceInstanceBindingService implements ServiceInstanceBindingService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DbaasServiceInstanceBindingService.class);
     private DBaasServiceInstanceBindingRepository dBaasServiceInstanceBindingRepository;
     private DBaasServiceInstanceRepository dBaasServiceInstanceRepository;
     private DBaasService dBaasService;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(DbaasServiceInstanceBindingService.class);
 
 
     @Autowired
@@ -81,7 +80,7 @@ public class DbaasServiceInstanceBindingService implements ServiceInstanceBindin
             LOGGER.warn("Will not delete dbaas broker service instance binding<{}>. Dbaas broker service instance binding is not registered.", request.getBindingId());
             return null;
         }
-        dBaasService.deleteUserFromDatabase(binding.getDatabaseId(), binding.getUser());
+        //dBaasService.deleteUserFromDatabase(binding.getDatabaseId(), binding.getUser()); removed cause it delete the only user in database (create service instance binding never create a user)
         dBaasServiceInstanceBindingRepository.delete(request.getBindingId());
         return new ServiceInstanceBinding(request.getBindingId(), request.getInstance().getServiceInstanceId(), null, null, null);
     }
